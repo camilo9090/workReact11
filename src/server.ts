@@ -1,35 +1,31 @@
 
 
 import express from "express";
+import router from "./router";
+import db from "./config/db";
 
-export const server =express()
+//Conectar datos a base
 
+async function connectDB() {
 
-//Rauting
+    try {
+        await db.authenticate()
+        db.sync()
+        console.log('conexion exitosa');
+        
+    } catch (error) {
+        console.log(error);
+        console.log('error al conectar');
 
-server.get('/',(req,res)=>{
-    const auth=true
-    res.json('Desde Get')
-})
-server.post('/',(req,res)=>{
-    const auth=true
-    res.json('Desde Post')
-})
+    }
 
-server.put('/',(req,res)=>{
-    const auth=true
-    res.json('Desde put')
-})
+}
 
-server.patch('/',(req,res)=>{
-    const auth=true
-    res.json('Desde Patch')
-})
+connectDB() 
+export const server = express()
 
-server.delete('/',(req,res)=>{
-    const auth=true
-    res.json('Desde Delete')
-})
+server.use('/api/products', router)
+
 
 
 export default server
