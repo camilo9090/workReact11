@@ -1,4 +1,7 @@
+import server from "./server"
 
-import { sumar } from './server'
-console.log('desde index');
-sumar()
+
+server.listen(4000,()=>{
+    console.log('jijijij');
+    
+})
