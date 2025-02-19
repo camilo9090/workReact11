@@ -1,4 +1,5 @@
 import {Router} from 'express'
+import { createProduct } from './handlers/product'
 
 
 const router=Router()
@@ -9,10 +10,7 @@ router.get('/',(req,res)=>{
     const auth=true
     res.json('Desde Get')
 })
-router.post('/',(req,res)=>{
-    const auth=true
-    res.json('Desde Post')
-})
+router.post('/',createProduct)
 
 router.put('/',(req,res)=>{
     const auth=true
