@@ -1,16 +1,19 @@
 import { Router } from 'express'
-import { createProduct } from './handlers/product'
-import { body } from 'express-validator'
+import { createProduct, getProduct, getProductById } from './handlers/product'
+import { body, param } from 'express-validator'
+import { handlersInputErrors } from './middleware'
 
 
 const router = Router()
 
 //Rauting
+router.get('/', getProduct)
+router.get('/:id',
 
-router.get('/', (req, res) => {
-    const auth = true
-    res.json('Desde Get')
-})
+    param('id').isNumeric().withMessage('El id debe ser un numero'),
+    handlersInputErrors,
+    getProductById)
+
 router.post('/',
 
     //validacion
@@ -20,7 +23,7 @@ router.post('/',
     body('price').isNumeric().withMessage('El valor no es valido').notEmpty()
         .withMessage('El precio del Producto no debe estar vacio')
         .custom(value => value > 0).withMessage('Valor debe ser mayor a 0'),
-
+    handlersInputErrors,
     createProduct
 )
 

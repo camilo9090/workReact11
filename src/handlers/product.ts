@@ -1,16 +1,54 @@
 
 import { Request, Response } from 'express'
 import Product from '../models/Product.model';
-import {  validationResult } from 'express-validator';
+
+
+export const getProduct = async (req: Request, res: Response) => {
+
+    try {
+        const products = await Product.findAll({
+            order: [
+                ['id', 'DESC']
+            ],
+            attributes: { exclude: ['createdAt', 'updatedAt'] }
+        })
+        res.json({ data: products })
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+export const getProductById = async (req: Request, res: Response) => {
+
+    try {
+        console.log(req.params.id);
+        const { id } = req.params
+        const product = await Product.findByPk(id)
+
+        if (!product) {
+            return res.status(404).json({ error: 'Producto no encontrado' })
+
+        }
+
+        res.json({ data: product })
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}
 
 export const createProduct = async (req: Request, res: Response) => {
+    try {
+
+        const product = await Product.create(req.body)
+        res.json({ data: product })
+    } catch (error) {
+
+        console.log(error);
 
 
-    let errors = validationResult(req)
-    if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() })
-}
-    const product = await Product.create(req.body)
-    res.json({ data: product })
+    }
 }
 
