@@ -24,7 +24,7 @@ class Product extends Model{
         
         type:DataType.BOOLEAN
     })
-    availability:boolean
+   declare availability:boolean
 
 }
 
