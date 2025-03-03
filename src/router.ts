@@ -196,12 +196,52 @@ router.put('/:id',
     handlersInputErrors
     , updateProduct)
 
+
+/**
+ * @swagger
+ * 
+ * /api/products/{id}:
+ *  patch:
+ *      summary: Actualizar la disponibilidad de un producto
+ *      tags:
+ *         - Products
+ *      description: Retorna la  Actualiza la disponibilidad del producto por ID
+ *      parameters:
+ *       - in: path
+ *         name: id
+ *         description: El ID del producto
+ *         required: true
+ *         schema:
+ *           type: integer
+ *      responses:
+ *        200:
+ *          description: Producto actualizado con éxito
+ *          content:
+ *               application/json:
+ *                   schema:
+ *                      $ref: '#/components/schemas/Product'
+ *        400:
+ *          description: Error en la petición-ID no valido
+ *        404:
+ *          description: Producto no encontrado
+ * 
+ * 
+ * 
+ */
+
 router.patch('/:id',
 
     param('id').isInt().withMessage('El id debe ser un numero'),
     handlersInputErrors,
     updateAvailability)
 
+/**
+ * @swagger
+ * 
+ * 
+ * 
+ * 
+ */
 router.delete('/:id',
     param('id').isInt().withMessage('El id debe ser un numero'),
     handlersInputErrors,
