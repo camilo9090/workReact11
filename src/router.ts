@@ -56,12 +56,72 @@ const router = Router()
  *                          $ref: '#/components/schemas/Product'
  */
 router.get('/', getProduct)
+
+
+/**
+ * @swagger
+ * /api/products/{id}:
+ *       get:
+ *         summary: obtener un producto por id
+ *         tags: [Products]
+ *         description: Retorna un producto por id
+ *         parameters:
+ *            - in: path
+ *              name: id
+ *              required: true
+ *              description: El id del producto
+ *              schema:
+ *                type: integer
+ *         responses:
+ *             200:
+ *                description: Successfull response
+ *                content:
+ *                   application/json:
+ *                     schema:
+ *                        $ref: '#/components/schemas/Product'
+ *             404:
+ *               description: Producto no encontrado
+ *             400:
+ *              description: Error en la peticion-ID no valido
+ *               
+ * 
+ */
 router.get('/:id',
 
     param('id').isInt().withMessage('El id debe ser un numero'),
     handlersInputErrors,
 
     getProductById)
+
+
+
+   /**
+ * @swagger
+ * /api/products:
+ *   post:
+ *     summary: Crear un producto
+ *     description: Retorna el producto creado
+ *     tags:
+ *       - Products
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "Teclado Gamer"
+ *               price:
+ *                 type: number
+ *                 example: 500
+ *     responses:
+ *       201:
+ *         description: Producto creado con éxito
+ *       400:
+ *         description: Error en la petición
+ */
 
 router.post('/',
 
@@ -76,6 +136,52 @@ router.post('/',
     handlersInputErrors,
     createProduct
 )
+
+
+/**
+ * @swagger
+ * /api/products/{id}:
+ *   put:
+ *     summary: Actualizar un producto
+ *     description: Actualiza un producto por ID
+ *     tags:
+ *       - Products
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: El ID del producto
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "Teclado Gamer"
+ *               price:
+ *                 type: number
+ *                 example: 500
+ *               availability:
+ *                 type: boolean
+ *                 example: true
+ *     responses:
+ *       200:
+ *         description: Producto actualizado con éxito
+ *         content:
+ *              application/json:
+ *                  schema:
+ *                     $ref: '#/components/schemas/Product'
+ *       400:
+ *         description: Error en la petición
+ *       404:
+ *         description: Producto no encontrado
+ * 
+ */
 
 router.put('/:id',
 
