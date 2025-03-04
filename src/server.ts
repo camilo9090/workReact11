@@ -5,7 +5,7 @@ import router from "./router";
 import db from "./config/db";
 import colors from "colors";
 import SwaggerUi  from "swagger-ui-express";
-import swaggerSpec from "./config/swagger";
+import swaggerSpec,{swaggerUiOptions} from "./config/swagger";
 
 //Conectar datos a base
 
@@ -35,7 +35,7 @@ server.use(express.json())
 server.use('/api/products', router)
 
 //Docs
-server.use('/docs',SwaggerUi.serve,SwaggerUi.setup(swaggerSpec))
+server.use('/docs',SwaggerUi.serve,SwaggerUi.setup(swaggerSpec,swaggerUiOptions))
 
 
 

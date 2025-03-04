@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import { SwaggerUiOptions } from "swagger-ui-express";
 
 const options: swaggerJSDoc.Options = {
 
@@ -21,5 +22,17 @@ const options: swaggerJSDoc.Options = {
 }
 
 const swaggerSpec = swaggerJSDoc(options)
+const swaggerUiOptions:SwaggerUiOptions={
+customCss:`
+.topbar-wrapper .link {
+content: "API Docs"
+
+}
+`
+}
 
 export default swaggerSpec
+
+export{
+    swaggerUiOptions
+}
